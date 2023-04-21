@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useSearchParams, Link, useLocation } from "react-router-dom";
 import { getSearchMovies } from "utils/data";
 import Searchbar from "components/SearchBar/SearchBar"
+import Loader from "components/Loader";
+import {Container, MoviesList, MovieItem, LinkItem } from "pages/Movies/Movies.styled"
 
 const Movies = () => {
     const [searchParams] = useSearchParams();
@@ -24,17 +26,21 @@ const Movies = () => {
     
     return (<div>
         <Searchbar />
-        <ul>
+        {isLoading && <Loader />}
+        <MoviesList>
             {searchedMovie &&
                 searchedMovie.map(movie => {
                     return (
-                        <li key={movie.id}>
-                            <Link to={`${movie.id}`} state={{from: location}} >{movie.title}
-                            </Link>
-                    </li>
+                        < MovieItem key={movie.id}>
+                            <LinkItem to={`${movie.id}`} state={location} >{movie.title}
+                            </LinkItem>
+                    </MovieItem>
                 )
             })}
-        </ul>
+        </MoviesList>
+        {error && (<p>Something went wrong</p>)}
     </div>)
 }
 export default Movies
+
+//  <Link to={`${movie.id}`} state={{from: location}} >{movie.title}

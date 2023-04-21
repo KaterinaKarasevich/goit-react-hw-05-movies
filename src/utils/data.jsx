@@ -1,4 +1,5 @@
-const API_KEY = "e70d6288cd7ecc69a9a7985121aac3c3";
+
+ const API_KEY = 'fae442014c974ac619f95851fb255ed7'
 const BASE_URL = "https://api.themoviedb.org/3";
 
 export const getTrendingData = () => {
@@ -24,12 +25,12 @@ export const getMovieReviews = (movieId) => {
 
 //https://api.themoviedb.org/3/movie/550?api_key=e70d6288cd7ecc69a9a7985121aac3c3
 
-const movieId = 63555;
-fetch (`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`)
-    .then(response => response.json())
-    .then((data ) => {
-    console.log(data)
-    })
+// const movieId = 63555;
+// fetch (`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`)
+//     .then(response => response.json())
+//     .then((data ) => {
+//     console.log(data)
+//     })
 
 //TrendingData
 //    results: Array(20)

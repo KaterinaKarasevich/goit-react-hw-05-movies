@@ -1,8 +1,8 @@
 import { React } from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 import { getMovieCredits } from "utils/data";
-
+import {CastList, CastItem } from "components/Cast/Cast.styled"
 const Cast = () => {
     const [actorsCast, setActorsCast] = useState([]);
     const {movieId} = useParams()
@@ -16,12 +16,12 @@ useEffect(() => {
 }, [movieId])
     
     return (
-        <ul>
+        <CastList>
             {actorsCast.length < 1 && <p>We dont have any information about Cast</p>}
             {actorsCast &&
                     actorsCast.map(actor => {
                         return (
-                            <li key={actor.id}>
+                            <CastItem key={actor.id}>
                                 <img
                                     src={actor.profile_path
                                         ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
@@ -30,11 +30,11 @@ useEffect(() => {
                                     width="200"/>
                                 <p>{ actor.name}</p>
                                 <p>Character: { actor.character}</p>
-                        </li>
+                        </CastItem>
                     )
                 })
                 }
-            </ul>
+            </CastList>
         
     )
 }   

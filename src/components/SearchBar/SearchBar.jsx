@@ -25,14 +25,7 @@ const Searchbar = () => {
 const handleChange = (evt) => {;
    setValue(evt.currentTarget.value) 
   };
-
-// const handleSubmit = (e) => {
-//   e.preventDefault()
-//   createSearchText(value)
-//   setValue("");
- 
-// }
- 
+  
 return (
 
   <SearchForm onSubmit={handleSubmit}>

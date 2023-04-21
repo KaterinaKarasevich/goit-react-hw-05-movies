@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, Suspense} from "react";
 import { useParams, Outlet, Link, useLocation } from "react-router-dom";
 import { getMovieDetails } from "utils/data";
+import {MovieDetailsItem, MovieDetailsList, LinkItem, LinkItemDetails } from "pages/MovieDetails/MovieDetails.styled"
+import Loader from "components/Loader";
 
 const MovieDetails = () => {
     const { movieId } = useParams()
     const location = useLocation()
-    console.log(location)
- const backLinkHref = useRef(location.state?.from ?? "/movies");
-
+   
     const [title, setTitle] = useState("");
     const [userScore, setuserScore] = useState(0);
     const [overview, setOverview] = useState("");
@@ -26,14 +26,18 @@ const MovieDetails = () => {
                 setOverview(data.overview)
                 setGenres(data.genres)
                 setPoster(data.poster_path)
-            }               
-        )
+                }               
+              )
+            .catch(error => setError(error.message))
+            .finally(setIsLoading(false));
  }, [movieId])
+const genreNames = genres.map(genre => genre.name).join(', ');
 
     return (
     
         <div>
-            {/* <button type="button" to={backLinkHref.current}>Go back</button> */}
+            {isLoading && <Loader />}
+            <LinkItem to={location.state}> ⬅ Go back</LinkItem>
             <h2>{title}</h2>
             <img src={poster
                 ? `https://image.tmdb.org/t/p/w300/${poster}`
@@ -43,36 +47,41 @@ const MovieDetails = () => {
             <p>User Score: {userScore}%</p>
             <h4>Overview</h4>
             <p>{overview}</p>
-            <ul>
-                <h4>Genres</h4>
-                {genres &&
+            <MovieDetailsList>
+                <h4>Genres:</h4>
+                <p>{genreNames}</p>
+                {/* {genres &&
                     genres.map(genre => {
                         return (
-                            <li key={genre.id}>
+                            <MovieDetailsItem key={genre.id}>
                                 {genre.name}
-                            </li>
+                            </MovieDetailsItem>
 
                         )
                     }
 
                     )
-                }
-            </ul>
+                } */}
+            </MovieDetailsList>
            
         
             
         <div>
-            <h4>Additional information</h4>
-            <ul>
-                <li>
-                    <Link to="cast">Cast</Link>
-                </li>
-                <li>
-                    <Link to="reviews">Reviews</Link>
-                </li>
-            </ul>
-            <Outlet />
-        </div>
+            <h3>Additional information</h3>
+            <MovieDetailsList>
+                <MovieDetailsItem>
+                    <LinkItemDetails to={`/movies/${movieId}/cast`}>Cast</LinkItemDetails>
+                </MovieDetailsItem>
+                <MovieDetailsItem>
+                    <LinkItemDetails to={`/movies/${movieId}/reviews`}>Reviews</LinkItemDetails>
+                </MovieDetailsItem>
+                </MovieDetailsList>
+                <Suspense fallback={ <Loader />}> 
+                   <Outlet />
+                </Suspense>
+            
+            </div>
+            {error && (<p>Something went wrong</p>)}
     </div>  
     );
 };
