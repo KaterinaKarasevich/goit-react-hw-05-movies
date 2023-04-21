@@ -1,15 +1,14 @@
 import { React } from "react";
 import { useState, useEffect } from "react";
-import { useSearchParams, Link, useLocation } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { getSearchMovies } from "utils/data";
-import Searchbar from "components/SearchBar/SearchBar"
+import {Searchbar} from "components/SearchBar/SearchBar"
 import Loader from "components/Loader";
-import {Container, MoviesList, MovieItem, LinkItem } from "pages/Movies/Movies.styled"
+import {MoviesList, MovieItem, LinkItem } from "pages/Movies/Movies.styled"
 
 const Movies = () => {
     const [searchParams] = useSearchParams();
     const location = useLocation()
-    console.log(location)
     const [searchedMovie, setSearchedMovie] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null) 

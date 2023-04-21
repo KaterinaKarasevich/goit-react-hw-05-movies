@@ -1,6 +1,6 @@
 import { React } from "react";
 import { useState, useEffect } from "react";
-import { Form, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getMovieCredits } from "utils/data";
 import {CastList, CastItem } from "components/Cast/Cast.styled"
 const Cast = () => {

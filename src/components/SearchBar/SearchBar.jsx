@@ -5,7 +5,7 @@ import { SearchForm, SearchFormButton, SearchFormInput } from "components/Search
 import { useSearchParams } from "react-router-dom";
 
 
-const Searchbar = () => {
+export const Searchbar = () => {
   const [value, setValue] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams()  
@@ -49,4 +49,3 @@ Searchbar.propTypes = {
    value : PropTypes.string,   
 }
 
-export default Searchbar
