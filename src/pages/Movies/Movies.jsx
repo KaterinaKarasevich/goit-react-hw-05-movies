@@ -30,10 +30,10 @@ const Movies = () => {
             {searchedMovie &&
                 searchedMovie.map(movie => {
                     return (
-                        < MovieItem key={movie.id}>
-                            <LinkItem to={`${movie.id}`} state={location} >{movie.title}
+                        <MovieItem key={movie.id}>
+                            <LinkItem to={`${movie.id}`} state={{from: location}} >{movie.title}
                             </LinkItem>
-                    </MovieItem>
+                        </MovieItem>
                 )
             })}
         </MoviesList>
@@ -42,4 +42,3 @@ const Movies = () => {
 }
 export default Movies
 
-//  <Link to={`${movie.id}`} state={{from: location}} >{movie.title}

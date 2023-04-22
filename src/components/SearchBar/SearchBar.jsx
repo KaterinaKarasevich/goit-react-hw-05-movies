@@ -1,5 +1,4 @@
 import  React, {useState } from "react"
-import PropTypes from 'prop-types'; 
 
 import { SearchForm, SearchFormButton, SearchFormInput } from "components/SearchBar/SearchBar.styled"
 import { useSearchParams } from "react-router-dom";
@@ -44,8 +43,3 @@ return (
 )
  
 }
-
-Searchbar.propTypes = {
-   value : PropTypes.string,   
-}
-

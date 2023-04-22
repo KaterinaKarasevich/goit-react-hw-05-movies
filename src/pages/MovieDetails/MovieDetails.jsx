@@ -30,14 +30,16 @@ const MovieDetails = () => {
               )
             .catch(error => setError(error.message))
             .finally(setIsLoading(false));
- }, [movieId])
+    }, [movieId])
+
+const moviePage = location.state?.from ?? '/';
 const genreNames = genres.map(genre => genre.name).join(', ');
 
     return (
     
         <div>
             {isLoading && <Loader />}
-            <LinkItem to={location.state}> ⬅ Go back</LinkItem>
+            <LinkItem to={moviePage } state={{ from: location }}> ⬅ Go back</LinkItem>
             <h2>{title}</h2>
             <img src={poster
                 ? `https://image.tmdb.org/t/p/w300/${poster}`
@@ -50,18 +52,6 @@ const genreNames = genres.map(genre => genre.name).join(', ');
             <MovieDetailsList>
                 <h4>Genres:</h4>
                 <p>{genreNames}</p>
-                {/* {genres &&
-                    genres.map(genre => {
-                        return (
-                            <MovieDetailsItem key={genre.id}>
-                                {genre.name}
-                            </MovieDetailsItem>
-
-                        )
-                    }
-
-                    )
-                } */}
             </MovieDetailsList>
            
         
@@ -70,10 +60,10 @@ const genreNames = genres.map(genre => genre.name).join(', ');
             <h3>Additional information</h3>
             <MovieDetailsList>
                 <MovieDetailsItem>
-                    <LinkItemDetails to={`/movies/${movieId}/cast`}>Cast</LinkItemDetails>
+                    <LinkItemDetails to={`/movies/${movieId}/cast`} state={{ from: moviePage }} >Cast</LinkItemDetails>
                 </MovieDetailsItem>
                 <MovieDetailsItem>
-                    <LinkItemDetails to={`/movies/${movieId}/reviews`}>Reviews</LinkItemDetails>
+                    <LinkItemDetails to={`/movies/${movieId}/reviews`} state={{from: moviePage}}>Reviews</LinkItemDetails>
                 </MovieDetailsItem>
                 </MovieDetailsList>
                 <Suspense fallback={ <Loader />}> 
@@ -87,3 +77,7 @@ const genreNames = genres.map(genre => genre.name).join(', ');
 };
 
 export default MovieDetails
+
+//  <LinkItem to={location.state}> ⬅ Go back</LinkItem>
+
+//  <LinkItemDetails to={`/movies/${movieId}/reviews`} state={{from: location}}>Reviews</LinkItemDetails>
